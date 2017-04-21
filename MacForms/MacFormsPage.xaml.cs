@@ -24,6 +24,12 @@ namespace MacForms
 			var issLocationResponse = await _client.GetStringAsync("http://api.open-notify.org/iss-now.json");
 			var issLocation = JsonConvert.DeserializeObject<IssPositionResponse>(issLocationResponse);
 			Text.Text +="\n" +$"{issLocation.Timestamp} : {issLocation.IssPosition.Longitude} {issLocation.IssPosition.Latitude}";
+
+
+			var mapUrl = $"https://maps.googleapis.com/maps/api/staticmap?center={issLocation.IssPosition.Latitude}" + 
+				$",{issLocation.IssPosition.Longitude}&zoom=5&scale=false&size=600x300&maptype=roadmap&format=png&visual_refresh=true";
+
+			IssLocationImage.Source = mapUrl;
 		}
 	}
 }
